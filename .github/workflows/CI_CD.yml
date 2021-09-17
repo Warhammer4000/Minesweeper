@@ -70,3 +70,7 @@ jobs:
         with:
           branch: gh-pages
           folder: build/WebGL
+      
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: build-WebGL
