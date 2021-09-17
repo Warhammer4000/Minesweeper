@@ -7,7 +7,7 @@ public abstract class BaseTile : MonoBehaviour
     public int X { get; private set; }
     public int Y { get; private set; }
     public string Value { get; private set; }
-    protected bool Revealed;
+    public bool Revealed { get; private set; }
 
 
 

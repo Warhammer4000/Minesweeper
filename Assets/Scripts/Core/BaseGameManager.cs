@@ -6,11 +6,14 @@ public class BaseGameManager : MonoBehaviour
 {
     public static BaseGameManager Instance;
 
-    private MinesweeperBase _minesweeperBase;
+    public MinesweeperBase MinesweeperBase { get; set; }
     public IGameController GameController;
 
     [SerializeField] private TextMeshProUGUI MineCountText;
     [SerializeField] private TextMeshProUGUI FlagCountText;
+
+    [SerializeField] private GameObject GameStatus;
+
 
     private int TotalFlags = 0;
 
@@ -24,8 +27,8 @@ public class BaseGameManager : MonoBehaviour
 
     void Start()
     {
-        _minesweeperBase = new MinesweeperBase(12, 12, 10);
-        GameController.Initialize(_minesweeperBase);
+        MinesweeperBase = new MinesweeperBase(12, 12, 10);
+        GameController.Initialize(MinesweeperBase);
         SetMineCount();
     }
 
@@ -34,6 +37,13 @@ public class BaseGameManager : MonoBehaviour
         if(IsGameOver)return;
         IsGameOver = true;
         Debug.Log("<color=red>GAME OVER</color>");
+    }
+
+    public void GameWon()
+    {
+        if(IsGameOver)return;
+        IsGameOver = true;
+        GameStatus.SetActive(true);
     }
 
     public void CascadeZeroes(int x, int y)
@@ -59,7 +69,7 @@ public class BaseGameManager : MonoBehaviour
 
     }
 
-    private void RevealTile(int x, int y) => GameController.RevealTile(x,y);
+    private void RevealTile(int x, int y) => GameController.RevealTile(x, y);
 
     public void RevealMines()
     {
@@ -74,7 +84,7 @@ public class BaseGameManager : MonoBehaviour
 
     public void SetMineCount()
     {
-        MineCountText.text = _minesweeperBase.TotalMines.ToString();
+        MineCountText.text = MinesweeperBase.TotalMines.ToString();
     }
 
     public void SetFlagCount(int value)

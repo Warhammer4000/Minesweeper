@@ -94,12 +94,6 @@ public class MinesweeperBase
         return mineCount;
     }
 
-    public string PeekIndex(int x,int y)
-    {
-        return Minefield[x, y];
-    }
-
-    
 
 
 
