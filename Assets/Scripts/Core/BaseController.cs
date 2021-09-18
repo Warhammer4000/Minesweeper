@@ -38,8 +38,10 @@ public class BaseController : MonoBehaviour
        
     }
 
+    //BAD CODE
     void LateUpdate()
     {
+        if(BaseGameManager.Instance.MinesweeperBase==null)return;
         CheckVictory();
     }
 

@@ -25,11 +25,12 @@ public class BaseGameManager : MonoBehaviour
     }
 
 
-    void Start()
+    public void Initialize(GameMode mode)
     {
-        MinesweeperBase = new MinesweeperBase(12, 12, 10);
+        MinesweeperBase = new MinesweeperBase(mode.x,mode.y,mode.Mines);
         GameController.Initialize(MinesweeperBase);
         SetMineCount();
+        SetCamera();
     }
 
     public void GameOver()
@@ -91,6 +92,32 @@ public class BaseGameManager : MonoBehaviour
     {
         TotalFlags += value;
         FlagCountText.text = TotalFlags.ToString();
+    }
+
+
+    private void SetCamera()
+    {
+       
+        var cam = Camera.main;
+        float zoomFactor = 1.5f;
+        float followTimeDelta = 0.8f;
+
+        // Midpoint we're after
+        Vector3 midpoint = (new Vector3(-40,5,-25) + new Vector3(MinesweeperBase.X+2,5,MinesweeperBase.Y+2)) / 2f;
+
+        // Distance between objects
+        float distance = (new Vector3(-40, 5,-25) - new Vector3(MinesweeperBase.X+2,5, MinesweeperBase.Y+2)).magnitude;
+
+        // Move camera a certain distance
+        Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;
+
+        
+        // You specified to use MoveTowards instead of Slerp
+        cam.transform.position = Vector3.Slerp(cam.transform.position, cameraDestination, followTimeDelta);
+
+        // Snap when close enough to prevent annoying slerp behavior
+        if ((cameraDestination - cam.transform.position).magnitude <= 0.05f)
+            cam.transform.position = cameraDestination;
     }
 
 
