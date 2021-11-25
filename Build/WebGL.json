@@ -1,7 +1,7 @@
 {
 "companyName": "BrainStation-23",
 "productName": "Minesweeper",
-"productVersion": "0.0.11",
+"productVersion": "0.0.12",
 "dataUrl": "WebGL.data.unityweb",
 "wasmCodeUrl": "WebGL.wasm.code.unityweb",
 "wasmFrameworkUrl": "WebGL.wasm.framework.unityweb",
